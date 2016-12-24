@@ -1,5 +1,5 @@
 const config = require('./config.json');
-const mailgun = require('mailgun-js')({apiKey: config.mailgun.api_key, config.mailgun.domain: domain});
+const mailgun = require('mailgun-js')({apiKey: config.mailgun.api_key, domain : config.mailgun.domain});
 const Promise = require('bluebird');
 const _ = require('underscore');
 const moment = require('moment');
@@ -18,7 +18,6 @@ var mailSender = {
 		}
 		var template = Handlebars.compile(emailTemplateQuery);
 		var parsedHtml = template(tempalteData);
-		console.log('parsed html', parsedHtml);
 		return new Promise(function(resolve, reject){
 			if( data.length < 1 ){
 				reject('No data to send');
@@ -30,7 +29,7 @@ var mailSender = {
 		var data = {
 		  from: 'Buscameli <bot@buscameli.com>',
 		  to: 'psyrax@opiumgarden.org',
-		  subject: 'Buscameli - Actualización para QUERY ' + moment().format('L') + ' ' + moment().format('LT'),
+		  subject: 'Buscameli - Actualización para Genesis ' + moment().format('L') + ' ' + moment().format('LT'),
 		  html: mailBody
 		};
 		return new Promise(function(resolve, reject) {
