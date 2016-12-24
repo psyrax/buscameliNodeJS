@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <style>
+      .metaData{
+        display: block;
+        font-size: 0.8em;
+      }
+      table{
+        border-collapse: collapse;
+      }
+      th{
+        font-weight: bold;
+      }
+      th, td {
+        border-bottom: 1px solid #D3CCC2;
+        padding: 15px;
+      }
+      .thumbnail{
+        max-width: 250px;
+      }
+      .thumbnailCell{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='body'>
+      <p>Hola {{username}}, estos son los resultados para tu búsqueda "{{searchQuery}}" en Mercado Libre y Segundamano.</p>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Listado</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each results as |result id|}}
+          <tr>
+            <td class="thumbnailCell">
+              <img class="thumbnail" src="{{result.thumbnail}}">
+            </td>
+            <td>
+              <a href="{{result.permalink}}">{{result.title}}</a>
+              <br /><span class="metaData">Disponibles: {{result.available_quantity}}</span>
+            </td>
+            <td>${{result.price}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

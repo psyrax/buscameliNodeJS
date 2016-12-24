@@ -1,0 +1,19 @@
+{
+	"meli" :
+	{
+		"client": "",
+		"secret": ""
+	},
+	"mysql":
+	{
+		"host": "",
+		"username": "",
+		"password" : "",
+		"database" : ""
+	},
+	"mailgun":
+	{
+		"api_key" : "",
+		"domain" : ""
+	}
+}
