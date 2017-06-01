@@ -23,6 +23,7 @@ function mailLoop(){
 		}
 	];
 	searchQueries.forEach(function(queryParams){
+		console.log('searching', queryParams);
 		meli.search(queryParams)
 		.then(function(data) {
 		   meliResults = data.results;
