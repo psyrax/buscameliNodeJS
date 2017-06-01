@@ -37,7 +37,11 @@ function mailLoop(){
 					return result;
 				}
 			});
-			return mailSender.htmlParser(notSent);
+			var data{
+				results : notSent,
+				query 	: queryParams.q
+			}
+			return mailSender.htmlParser(data);
 		})
 		.then(function(data){
 			return mailSender.sendMail(data);

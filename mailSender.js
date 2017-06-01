@@ -12,9 +12,9 @@ moment.locale('es');
 var mailSender = {
 	htmlParser: function(data){
 		var tempalteData = {
-			results: data,
+			results: data.results,
 			username: 'psyrax',
-			searchQuery: 'genesis'
+			searchQuery: data.query
 		}
 		var template = Handlebars.compile(emailTemplateQuery);
 		var parsedHtml = template(tempalteData);
