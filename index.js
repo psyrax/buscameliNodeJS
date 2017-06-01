@@ -3,11 +3,6 @@ const mysqlSync = require('./mysqlSync.js');
 const mailSender = require('./mailSender.js');
 const _ = require('underscore');
 
-var meliResults;
-var sentIds;
-var toCheckIds;
-var willSendIds;
-var notSent;
 
 function mailLoop(){
 	var searchQueries = [
@@ -22,21 +17,22 @@ function mailLoop(){
 			"since" : "today"
 		}
 	];
-	searchQueries.forEach(function(queryParams){
+	searchQueries.forEach(function(queryParams){		
+		var willSendIds;
 		meli.search(queryParams)
 		.then(function(data) {
-		   meliResults = data.results;
 		   var checkData = {
 		   		meliResults : data.results,
 		   		userId : 1
 		   };
-		   return mysqlSync.checkSent(data);
+		   return mysqlSync.checkSent(checkData);
 		})
 		.then(function(data){
-			sentIds = _.pluck(data.results, 'meli_id');
-			toCheckIds = _.pluck(data.meliResults, 'id');
+			
+			var sentIds = _.pluck(data.results, 'meli_id');
+			var toCheckIds = _.pluck(data.meliResults, 'id');
 			willSendIds = _.difference(toCheckIds, sentIds);
-			notSent = _.filter(data.meliResults, function(result){
+			var notSent = _.filter(data.meliResults, function(result){
 				if ( willSendIds.indexOf(result.id) > -1 ){
 					return result;
 				}

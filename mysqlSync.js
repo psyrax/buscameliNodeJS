@@ -28,7 +28,6 @@ var mysqlSync = {
 		})
 	},
 	saveSent: function(toSave){
-		console.log('will save', toSave);
 		connection.query('INSERT INTO sent_results (meli_id, user_id) VALUES ? ', [toSave], function(err, rows){
 			console.log(rows);
 		})
