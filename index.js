@@ -23,22 +23,25 @@ function mailLoop(){
 		}
 	];
 	searchQueries.forEach(function(queryParams){
-		console.log('searching', queryParams);
-		meli.search(queryParams)
+		meli.search()
 		.then(function(data) {
 		   meliResults = data.results;
-		   return mysqlSync.checkSent();
+		   var checkData = {
+		   		meliResults : data.results,
+		   		userId : 1
+		   };
+		   return mysqlSync.checkSent(data);
 		})
 		.then(function(data){
 			sentIds = _.pluck(data, 'meli_id');
-			toCheckIds = _.pluck(meliResults, 'id');
+			toCheckIds = _.pluck(data.meliResults, 'id');
 			willSendIds = _.difference(toCheckIds, sentIds);
-			notSent = _.filter(meliResults, function(result){
+			notSent = _.filter(data.meliResults, function(result){
 				if ( willSendIds.indexOf(result.id) > -1 ){
 					return result;
 				}
 			});
-			var data = {
+			var data{
 				results : notSent,
 				query 	: queryParams.q
 			}

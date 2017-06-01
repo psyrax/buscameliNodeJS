@@ -12,13 +12,17 @@ let connection = mysql.createConnection({
 });
 
 var mysqlSync = {
-	checkSent: function(){
+	checkSent: function(data){
 		return new Promise(function(resolve, reject){
 			connection.query('SELECT meli_id FROM `sent_results`', function (err, results, fields) {
 	  			if (err){
 	  				reject(err);
 	  			} else {
-	  				resolve(results);
+	  				var returnData {
+	  					meliResults : data.meliResults,
+	  					results: results
+	  				}
+	  				resolve(data);
 	  			}
 			});
 		})
