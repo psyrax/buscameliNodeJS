@@ -23,7 +23,7 @@ function mailLoop(){
 		}
 	];
 	searchQueries.forEach(function(queryParams){
-		meli.search()
+		meli.search(queryParams)
 		.then(function(data) {
 		   meliResults = data.results;
 		   return mysqlSync.checkSent();
