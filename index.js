@@ -33,7 +33,7 @@ function mailLoop(){
 		   return mysqlSync.checkSent(data);
 		})
 		.then(function(data){
-			sentIds = _.pluck(data, 'meli_id');
+			sentIds = _.pluck(data.results, 'meli_id');
 			toCheckIds = _.pluck(data.meliResults, 'id');
 			willSendIds = _.difference(toCheckIds, sentIds);
 			notSent = _.filter(data.meliResults, function(result){
