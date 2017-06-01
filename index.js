@@ -10,32 +10,46 @@ var willSendIds;
 var notSent;
 
 function mailLoop(){
-	meli.search()
-	.then(function(data) {
-	   meliResults = data.results;
-	   return mysqlSync.checkSent();
-	})
-	.then(function(data){
-		sentIds = _.pluck(data, 'meli_id');
-		toCheckIds = _.pluck(meliResults, 'id');
-		willSendIds = _.difference(toCheckIds, sentIds);
-		notSent = _.filter(meliResults, function(result){
-			if ( willSendIds.indexOf(result.id) > -1 ){
-				return result;
-			}
-		});
-		return mailSender.htmlParser(notSent);
-	})
-	.then(function(data){
-		return mailSender.sendMail(data);
-	})
-	.then(function(data){
-		var toSync = [];
-		willSendIds.forEach(function(id){
-			toSync.push([id, 1]);
+	var searchQueries = [
+		{
+			"category" : "MLM1144",
+			"q": "sega genesis",
+			"since" : "today"
+		},
+		{
+			"category" : "MLM1144",
+			"q": "dreamcast",
+			"since" : "today"
+		}
+	];
+	searchQueries.forEach(function(queryParams){
+		meli.search()
+		.then(function(data) {
+		   meliResults = data.results;
+		   return mysqlSync.checkSent();
 		})
-		return mysqlSync.saveSent(toSync);
-	})
+		.then(function(data){
+			sentIds = _.pluck(data, 'meli_id');
+			toCheckIds = _.pluck(meliResults, 'id');
+			willSendIds = _.difference(toCheckIds, sentIds);
+			notSent = _.filter(meliResults, function(result){
+				if ( willSendIds.indexOf(result.id) > -1 ){
+					return result;
+				}
+			});
+			return mailSender.htmlParser(notSent);
+		})
+		.then(function(data){
+			return mailSender.sendMail(data);
+		})
+		.then(function(data){
+			var toSync = [];
+			willSendIds.forEach(function(id){
+				toSync.push([id, 1]);
+			})
+			return mysqlSync.saveSent(toSync);
+		});
+	});
 };
 
 
