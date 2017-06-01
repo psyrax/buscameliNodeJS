@@ -22,7 +22,7 @@ var mysqlSync = {
 	  					meliResults : data.meliResults,
 	  					results: results
 	  				}
-	  				resolve(data);
+	  				resolve(returnData);
 	  			}
 			});
 		})
