@@ -23,7 +23,7 @@ function mailLoop(){
 		}
 	];
 	searchQueries.forEach(function(queryParams){
-		meli.search()
+		meli.search(queryParams)
 		.then(function(data) {
 		   meliResults = data.results;
 		   var checkData = {
@@ -41,7 +41,7 @@ function mailLoop(){
 					return result;
 				}
 			});
-			var data{
+			var data = {
 				results : notSent,
 				query 	: queryParams.q
 			}

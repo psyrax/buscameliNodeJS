@@ -18,7 +18,7 @@ var mysqlSync = {
 	  			if (err){
 	  				reject(err);
 	  			} else {
-	  				var returnData {
+	  				var returnData = {
 	  					meliResults : data.meliResults,
 	  					results: results
 	  				}
