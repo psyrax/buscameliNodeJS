@@ -42,4 +42,4 @@ function mailLoop(){
 mailLoop();
 setInterval(function() {
 	mailLoop();
-}, 60000);
+}, 3600000);
