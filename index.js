@@ -37,7 +37,7 @@ function mailLoop(){
 					return result;
 				}
 			});
-			var data{
+			var data = {
 				results : notSent,
 				query 	: queryParams.q
 			}
