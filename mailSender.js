@@ -19,7 +19,7 @@ var mailSender = {
 		var template = Handlebars.compile(emailTemplateQuery);
 		var parsedHtml = template(tempalteData);
 		return new Promise(function(resolve, reject){
-			if( data.length < 1 ){
+			if( data.results.length < 1 ){
 				reject('No data to send');
 			}
 			resolve(parsedHtml);
